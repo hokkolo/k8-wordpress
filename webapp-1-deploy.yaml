@@ -1,0 +1,32 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: webapp-1
+  labels:
+    app: dev    
+spec:
+  selector:
+    matchLabels:
+      app: wordpress
+  
+  template:
+    metadata:
+      labels:
+        app: wordpress
+    spec:
+      containers:
+      - name: webapp-1-container
+        image: wordpress:latest
+        env:
+          - name: WORDPRESS_DB_HOST
+            value: "database:3306"
+          - name: WORDPRESS_DB_USER
+            value: "wordpress123"
+          - name: WORDPRESS_DB_PASSWORD
+            value: "wordpress123"
+          - name: WORDPRESS_DB_NAME
+            value: "wordpress"
+        resources:
+          limits:
+            memory: "128Mi"
+            cpu: "500m"
